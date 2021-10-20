@@ -1,0 +1,30 @@
+.buttonStyle
+{
+  position:relative;
+  height: 100%;
+  width: 100%;
+  background-color: #cf3130;
+  border-radius: 30%;
+  border: 1px solid #801d1d;
+  box-shadow: 5px 5px black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.buttonStyle:hover
+{
+  top: 5px;
+  left: 5px;
+  background-color: #8a1f1f;
+  border: 1px solid #4d1111;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.buttonText
+{
+  font-weight: bold;
+  font-size: 40px;
+}

@@ -1,0 +1,76 @@
+.CalculatorBody
+{
+  height: 600px;
+  width: 500px;
+  min-height: 600px;
+  max-height: 600px;
+  min-width: 500px;
+  background-color: #a5a5a5;
+  border-radius: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 10px 10px 5px #926f52;
+}
+
+.CalculatorDisplay
+{
+  height: 10%;
+  width: 85%;
+  background-color: white;
+  border-radius: 25px;
+  margin-top: 7%;
+  display: flex;
+  align-items: center;
+}
+
+.CalculatorDisplayText
+{
+  font-size: 40px;
+  font-family:'Courier New', monospace;
+  overflow-x: auto;
+  padding-left: 13px;
+}
+
+.ButtonsSection
+{
+  width: 85%;
+  height: 73%;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: row;
+  background-color: #6e6e6e;
+  border-radius: inherit;
+  align-items: center;
+}
+
+.CalculatorButtonContainer
+{
+  flex: 3;
+  height: 95%;
+  border: 1px solid black;
+  display: grid;
+  grid-template-columns: 60px 60px 60px 60px;
+  grid-template-rows: 60px 60px 60px 60px;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  overflow: hidden;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+.CalculatorOperatorContainer
+{
+  flex: 1;
+  height: 95%;
+  display: grid;
+  grid-template-columns: 80px;
+  grid-template-rows: auto;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  
+  padding-bottom: 10px;
+}
+
