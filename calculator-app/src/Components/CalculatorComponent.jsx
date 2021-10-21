@@ -31,7 +31,7 @@ const CalculatorComponent = () =>
     //Iterate over input and record in stack and queue.
     for(let i = 0; i < input.length; i++)
     {
-      let curData = input.at(i);
+      let curData = input[i];
       console.log('CurData = ' + curData);
 
       //If this is an operator:
@@ -40,28 +40,39 @@ const CalculatorComponent = () =>
         //Create a precedence table:
         //let precedenceTable = [['^'], ['*', '/'], ['+', '-'], []]
 
-        console.log('stack: ' + curData.at(i));
-        stack.push(curData.at(i));
+        console.log('stack push: ' + curData);
+        stack.push(curData);
+        console.log('Stack: ' + stack.toString());
 
         //Check for order of operations by peeking the stack.
         let topOfStack = stack.pop();
         stack.push(topOfStack);
+        console.log('outofstackif');
       }
 
       //If this is a number:
-      if(curData === '1' || curData === '2' || curData === '3' || curData === '4' || curData === '5'  
-        || curData === '6' || curData === '7' || curData === '8' ||curData === '9' || curData === '0')
+      if(curData === 1 || curData === 2 || curData === 3 || curData === 4 || curData === 5 || curData === 6
+        || curData === 7 || curData === 8 ||curData === 9 || curData === 0)
       {
+
         let fullNumber = curData;
+        console.log(fullNumber);
         let temp = i;
         
-        while (temp !== input.length() - 1) {
+        let numAdded = 0;
+        while (temp !== input.length - 1) {
           
-          let next = input.at(temp + 1);
+          let next = input[temp + 1];
+          console.log('Next: ' + next );
           if (next === '/' || next === '*' || next === '+' || next === '-') {
             break;
           }
           else {
+            numAdded++;
+            for(let j = 0; j < numAdded; j++)
+            {
+              fullNumber = fullNumber * 10;
+            }
             fullNumber += next;
           }
 
@@ -71,8 +82,9 @@ const CalculatorComponent = () =>
         //Reposition pointer.
         i = temp;
         
-        console.log('queue: ' + fullNumber);
+        console.log('enqueue: ' + fullNumber);
         queue.push(fullNumber);
+        console.log('queue: ' + queue.toString());
       }
     }
 
@@ -93,7 +105,7 @@ const CalculatorComponent = () =>
     for(let i = 0; i < postfixExpression.length; i++)
     {
       let curData = postfixExpression.at(i);
-      if(curData !== "/" && curData !== "*" && curData !== "+" && curData !== "-")
+      if(curData !== '/' && curData !== '*' && curData !== '+' && curData !== '-')
       {
         stack.push(postfixExpression.at(i));
       }
@@ -109,7 +121,6 @@ const CalculatorComponent = () =>
       }
     }
 
-
     return(stack.pop());
   }
 
@@ -119,6 +130,7 @@ const CalculatorComponent = () =>
   const evaluate = () =>
   {
     let result = shuntingYardAlgorithm();
+    console.log('post shunting yard: ' + result);
     result = postfixEvaluation(result);
     setInput([]);
     setVisibleString(result);

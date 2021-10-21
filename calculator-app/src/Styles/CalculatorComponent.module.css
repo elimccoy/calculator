@@ -49,7 +49,6 @@
 {
   flex: 3;
   height: 95%;
-  border: 1px solid black;
   display: grid;
   grid-template-columns: 60px 60px 60px 60px;
   grid-template-rows: 60px 60px 60px 60px;
