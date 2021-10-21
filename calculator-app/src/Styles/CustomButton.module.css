@@ -6,7 +6,7 @@
   background-color: #cf3130;
   border-radius: 30%;
   border: 1px solid #801d1d;
-  box-shadow: 5px 5px black;
+  box-shadow: 5px 5px #571414;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,5 +26,5 @@
 .buttonText
 {
   font-weight: bold;
-  font-size: 40px;
+  font-size: 28px;
 }

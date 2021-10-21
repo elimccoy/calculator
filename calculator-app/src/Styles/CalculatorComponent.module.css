@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 10px 10px 5px #926f52;
+  box-shadow: 10px 10px #797979;
   overflow: hidden;
 }
 
@@ -51,10 +51,9 @@
   height: 95%;
   display: grid;
   grid-template-columns: 60px 60px 60px 60px;
-  grid-template-rows: 60px 60px 60px 60px;
+  grid-template-rows: 60px 60px 60px 60px 60px 60px;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
-  overflow: hidden;
   padding-left: 20px;
   padding-top: 10px;
 }
@@ -65,7 +64,7 @@
   height: 95%;
   display: grid;
   grid-template-columns: 80px;
-  grid-template-rows: auto;
+  grid-template-rows: 60px;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   padding-left: 10px;
