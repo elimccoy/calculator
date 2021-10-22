@@ -8,27 +8,42 @@ const CalculatorComponent = () =>
   //State Varaibles:
   const [input, setInput] = useState([]);
   const [visibleString, setVisibleString] = useState('');
-
+  const [answerOnDisplay, setAnswerOnDisplay] = useState(false);
+  
   //buttonClick
   //Input: buttonVal (Any)
   //Desc: Adds the passed button value to the input string.
   const buttonClick = (buttonVal) =>
   {
-    let s = input;
-    s.push(buttonVal);
-    setInput(s);
-
-    if(buttonVal !== 'Neg')
+    //Check if answer is on the display.
+    if(answerOnDisplay === true)
     {
-      setVisibleString(visibleString + buttonVal);
+      setVisibleString('');
+      setInput([]);
+      setAnswerOnDisplay(false);
+      return;
+    }
+
+    //Handle negation and deleting.
+    if(buttonVal === 'Neg')
+    {
+      setVisibleString(visibleString + '-');
+      let s = input;
+      s.push(buttonVal);
+      setInput(s);
+    }
+    else if(buttonVal === 'Del')
+    {
+      let s = input;
+      setInput(s.slice(0, s.length - 1));
+      setVisibleString(visibleString.slice(0, visibleString.length - 1));
     }
     else
     {
-      setVisibleString(visibleString + '-');
+      let s = input;
+      s.push(buttonVal);
+      setVisibleString(visibleString + buttonVal);
     }
-
-    console.log('Array: ' + input.toString());
-    console.log('Visible String: ' + visibleString);
   } 
 
   //postfixEvaluation
@@ -45,7 +60,7 @@ const CalculatorComponent = () =>
       console.log('curData = ' + curData);
 
       if(curData !== '/' && curData !== '*' && curData !== '+' && curData !== '-' && curData !== '^' 
-        && curData !== 'Sin(' && curData !== 'Cos(')
+        && curData !== 'Sin(' && curData !== 'Cos(' && curData !== 'Tan(')
       {
         console.log('stack push: ' + curData);
         stack.push(curData);
@@ -55,7 +70,7 @@ const CalculatorComponent = () =>
       {
 
         //If trig func:
-        if(curData === 'Sin(' || curData === 'Cos(')
+        if(curData === 'Sin(' || curData === 'Cos(' || curData === 'Tan(')
         {
           let firstVal = stack.pop();
           let operator = curData;
@@ -67,6 +82,11 @@ const CalculatorComponent = () =>
               break;
             case 'Cos(':
               result = Math.cos(firstVal);
+              break;
+            case 'Tan(':
+              result = Math.tan(firstVal);
+              break;
+            default:
               break;
           }
 
@@ -99,8 +119,7 @@ const CalculatorComponent = () =>
                 result = result * secondVal;
               }
               break;
-            case 'Sin(':
-              result = Math.sin(secondVal);
+            default:
               break;
           }
 
@@ -123,7 +142,8 @@ const CalculatorComponent = () =>
     
     //Clear input and show result.
     setInput([]);
-    setVisibleString(result);
+    setVisibleString('Ans = ' + result + '\nClick any button to continue...');
+    setAnswerOnDisplay(true);
   }
 
   return (
@@ -137,7 +157,9 @@ const CalculatorComponent = () =>
         <div className={Style.CalculatorButtonContainer}>
           <CustomButton value = {'Sin'} onClick={()=>{ buttonClick('Sin(') }}/>
           <CustomButton value = {'Cos'} onClick={()=>{ buttonClick('Cos(') }}/>
+          <CustomButton value = {'Tan'} onClick={()=>{ buttonClick('Tan(') }}/>
           <CustomButton value = {1} onClick={()=>{ buttonClick(1) }}/>
+          <CustomButton value = {'Del'} onClick={()=>{ buttonClick('Del') }}/>
           <CustomButton value = {2} onClick={()=>{ buttonClick(2) }}/>
           <CustomButton value = {3} onClick={()=>{ buttonClick(3) }}/>
           <CustomButton value = {'C'} onClick={()=>{ setVisibleString(''); setInput([]); }}/>

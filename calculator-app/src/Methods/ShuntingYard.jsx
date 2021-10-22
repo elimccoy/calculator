@@ -13,7 +13,7 @@ const shuntingYardAlgorithm = (input) => {
     //If this is an operator:
     if (curData === '/' || curData === '*' || curData === '+' || curData === '-' || curData === '^' || curData === '(' 
       || curData === ')' || curData === '{' || curData === '}' || curData === '[' || curData === ']' 
-      || curData === 'Sin(' || curData === 'Cos(') {
+      || curData === 'Sin(' || curData === 'Cos(' || curData === 'Tan(') {
       
       //Handle Parenthasies and trig funcs:
       if (curData === ')' || curData === '}' || curData === ']') {
@@ -24,13 +24,22 @@ const shuntingYardAlgorithm = (input) => {
           let temp = stack.pop();
           if ( (temp === '(' && curData === ')') || (temp === '{' && curData === '}') 
             || (temp === '[' && curData === ']')) break;
+
+          //Check for trig functions:
+          if ((temp === 'Cos(' && curData === ')') || (temp === 'Sin(' && curData === ')') || (temp === 'Sin(' && curData === ')'))
+          {
+            console.log('enqueue: ' + temp);
+            queue.push(temp);
+            console.log('queue: ' + queue.toString());
+            break;
+          }
           console.log('enqueue: ' + temp);
-          console.log('queue: ' + queue.toString());
           queue.push(temp);
+          console.log('queue: ' + queue.toString());
         }
         continue;
       }
-      else if (curData === '(' || curData === '{' || curData === '[' || curData === 'Sin(' || curData === 'Cos(')
+      else if (curData === '(' || curData === '{' || curData === '[' || curData === 'Sin(' || curData === 'Cos(' || curData === 'Tan(')
       {
         stack.push(curData);
         console.log('stack push: ' + curData);
@@ -174,7 +183,7 @@ const shuntingYardAlgorithm = (input) => {
 const determinePrecedence = (operator) =>
 {
   //Create a precedence table:
-  let precedenceTable = [['^'], ['*', '/'], ['+', '-'], ['(', '{', '[']]; //parentheses at end as marker.
+  let precedenceTable = [['^'], ['*', '/'], ['+', '-'], ['(', '{', '[', 'Sin(', 'Cos(', 'Tan(']]; //parentheses at end as marker.
 
   //Determine precedence of current operator:
   let precedenceVal = -1;
