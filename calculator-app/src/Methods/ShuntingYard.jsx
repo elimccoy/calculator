@@ -11,9 +11,7 @@ const shuntingYardAlgorithm = (input) => {
     console.log('cur data: ' + curData);
 
     //If this is an operator:
-    if (curData === '/' || curData === '*' || curData === '+' || curData === '-' || curData === '^' || curData === '(' 
-      || curData === ')' || curData === '{' || curData === '}' || curData === '[' || curData === ']' 
-      || curData === 'Sin(' || curData === 'Cos(' || curData === 'Tan(') {
+    if (!isNumber(curData)) {
       
       //Handle Parenthasies and trig funcs:
       if (curData === ')' || curData === '}' || curData === ']') {
@@ -22,11 +20,13 @@ const shuntingYardAlgorithm = (input) => {
         while (stack.length !== 0) {
           
           let temp = stack.pop();
-          if ( (temp === '(' && curData === ')') || (temp === '{' && curData === '}') 
-            || (temp === '[' && curData === ']')) break;
+          if ( (temp === '(' && curData === ')') || (temp === '{' && curData === '}') || (temp === '[' && curData === ']')) break;
 
           //Check for trig functions:
-          if ((temp === 'Cos(' && curData === ')') || (temp === 'Sin(' && curData === ')') || (temp === 'Sin(' && curData === ')'))
+          if ((temp === 'Cos(' && curData === ')') || (temp === 'Sin(' && curData === ')') || (temp === 'Tan(' && curData === ')')
+           || (temp === 'Cot(' && curData === ')') || (temp === 'Arcsin(' && curData === ')') || (temp === 'Arccos(' && curData === ')')
+           || (temp === 'Arctan(' && curData === ')') || (temp === 'Arcctg(' && curData === ')') || (temp === 'ln(' && curData === ')')
+           || (temp === 'log(' && curData === ')'))
           {
             console.log('enqueue: ' + temp);
             queue.push(temp);
@@ -39,7 +39,9 @@ const shuntingYardAlgorithm = (input) => {
         }
         continue;
       }
-      else if (curData === '(' || curData === '{' || curData === '[' || curData === 'Sin(' || curData === 'Cos(' || curData === 'Tan(')
+      else if (curData === '(' || curData === '{' || curData === '[' || curData === 'Sin(' || curData === 'Cos(' || curData === 'Tan('
+        || curData === 'Cot(' || curData === 'Arcsin(' || curData === 'Arccos(' || curData === 'Arctan(' || curData === 'Arcctg('
+        || curData === 'ln(' || curData === 'log(')
       {
         stack.push(curData);
         console.log('stack push: ' + curData);
@@ -180,10 +182,13 @@ const shuntingYardAlgorithm = (input) => {
   return queue;
 }
 
+//determinePrecedence
+//Desc: returns an integer corresponding to the precedence of each operator and function.
 const determinePrecedence = (operator) =>
 {
   //Create a precedence table:
-  let precedenceTable = [['^'], ['*', '/'], ['+', '-'], ['(', '{', '[', 'Sin(', 'Cos(', 'Tan(']]; //parentheses at end as marker.
+  let precedenceTable = [['^'], ['*', '/'], ['+', '-'], ['(', '{', '[', 'Sin(', 'Cos(', 'Tan(', 'Cot(', 
+    'Arcsin(', 'Arccos(', 'Arctan(', 'Arcctg(', 'ln(', 'log(']]; //parentheses at end as marker.
 
   //Determine precedence of current operator:
   let precedenceVal = -1;
@@ -198,6 +203,23 @@ const determinePrecedence = (operator) =>
   }
 
   return precedenceVal;
+}
+
+//isNumber
+//Desc: returns if a data is a number or not (t/f).
+const isNumber = (curData) =>
+{
+  if (curData === '/' || curData === '*' || curData === '+' || curData === '-' || curData === '^' || curData === '(' 
+      || curData === ')' || curData === '{' || curData === '}' || curData === '[' || curData === ']' 
+      || curData === 'Sin(' || curData === 'Cos(' || curData === 'Tan(' || curData === 'Cot(' || curData === 'Arcsin('
+      || curData === 'Arccos(' || curData === 'Arctan(' || curData === 'Arcctg(' || curData === 'ln(' || curData === 'log(')
+  {
+    return false;
+  }
+  else
+  {
+    return true;
+  }
 }
 
 export default shuntingYardAlgorithm;

@@ -1,9 +1,9 @@
 .CalculatorBody
 {
-  height: 730px;
+  height: 780px;
   width: 500px;
-  min-height: 730px;
-  max-height: 730px;
+  min-height: 780px;
+  max-height: 780px;
   min-width: 500px;
   background-color: #a5a5a5;
   border-radius: 10%;
@@ -38,7 +38,7 @@
 .ButtonsSection
 {
   width: 85%;
-  height: 75%;
+  height: 76%;
   margin-top: 5%;
   display: flex;
   flex-direction: row;
@@ -53,7 +53,7 @@
   height: 95%;
   display: grid;
   grid-template-columns: 60px 60px 60px 60px;
-  grid-template-rows: 60px 60px 60px 60px 60px 60px;
+  grid-template-rows: 60px 60px 60px 60px 60px 60px 60px 60px;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   padding-left: 20px;
@@ -66,7 +66,6 @@
   height: 95%;
   display: grid;
   grid-template-columns: 80px;
-  grid-template-rows: 60px;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   padding-left: 10px;

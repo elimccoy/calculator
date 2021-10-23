@@ -26,5 +26,11 @@
 .buttonText
 {
   font-weight: bold;
-  font-size: 28px;
+  font-size: 27px;
+}
+
+.buttonTextLong
+{
+  font-weight: bold;
+  font-size: 17px;
 }
