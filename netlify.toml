@@ -1,4 +1,4 @@
 [build]
   command = "npm run build"
-  publish="calculator-app/build"
+  publish="/build"
   base = "calculator-app"
