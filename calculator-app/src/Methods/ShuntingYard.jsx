@@ -16,14 +16,18 @@ const shuntingYardAlgorithm = (input) => {
       //Handle Parenthasies and trig funcs:
       if (curData === ')' || curData === '}' || curData === ']') {
 
-        //enqueue until other side apears
+        //enqueue until other side apears.
+        var otherSideFound = false;
         while (stack.length !== 0) {
           
           let temp = stack.pop();
-          if ( (temp === '(' && curData === ')') || (temp === '{' && curData === '}') || (temp === '[' && curData === ']')) break;
-
+          if ( (temp === '(' && curData === ')') || (temp === '{' && curData === '}') || (temp === '[' && curData === ']'))
+          {
+            otherSideFound = true;
+            break;
+          } 
           //Check for trig functions:
-          if ((temp === 'Cos(' && curData === ')') || (temp === 'Sin(' && curData === ')') || (temp === 'Tan(' && curData === ')')
+          else if ((temp === 'Cos(' && curData === ')') || (temp === 'Sin(' && curData === ')') || (temp === 'Tan(' && curData === ')')
            || (temp === 'Cot(' && curData === ')') || (temp === 'Arcsin(' && curData === ')') || (temp === 'Arccos(' && curData === ')')
            || (temp === 'Arctan(' && curData === ')') || (temp === 'Arcctg(' && curData === ')') || (temp === 'ln(' && curData === ')')
            || (temp === 'log(' && curData === ')'))
@@ -31,17 +35,23 @@ const shuntingYardAlgorithm = (input) => {
             console.log('enqueue: ' + temp);
             queue.push(temp);
             console.log('queue: ' + queue.toString());
+            otherSideFound = true;
             break;
           }
           console.log('enqueue: ' + temp);
           queue.push(temp);
           console.log('queue: ' + queue.toString());
         }
+
+        if(otherSideFound === false)
+        {
+          return('Invalid Input.')
+        }
         continue;
       }
       else if (curData === '(' || curData === '{' || curData === '[' || curData === 'Sin(' || curData === 'Cos(' || curData === 'Tan('
         || curData === 'Cot(' || curData === 'Arcsin(' || curData === 'Arccos(' || curData === 'Arctan(' || curData === 'Arcctg('
-        || curData === 'ln(' || curData === 'log(')
+        || curData === 'ln(' || curData === 'log(' || curData === 'Neg')
       {
         stack.push(curData);
         console.log('stack push: ' + curData);
@@ -101,7 +111,7 @@ const shuntingYardAlgorithm = (input) => {
 
     //If this is a number:
     if (curData === 1 || curData === 2 || curData === 3 || curData === 4 || curData === 5 || curData === 6
-      || curData === 7 || curData === 8 || curData === 9 || curData === 0 || curData === '.' || curData === 'Neg') {
+      || curData === 7 || curData === 8 || curData === 9 || curData === 0 || curData === '.') {
 
       let fullNumber = curData;
       let temp = i;
@@ -123,12 +133,13 @@ const shuntingYardAlgorithm = (input) => {
         }
         else 
         {
+          /*
           if(fullNumber === 'Neg')//Handle negitive value.
           {
             fullNumber = next * -1;
             negativeNum = true;
           }
-          else if(pastDecimalPlace) //Handle past decimal.
+          else*/ if(pastDecimalPlace) //Handle past decimal.
           {
             let denom = 10;
             for(let k = 0; k < numPastDecimal; k++)
@@ -179,7 +190,14 @@ const shuntingYardAlgorithm = (input) => {
     console.log('queue: ' + queue.toString());
   }
 
-  return queue;
+  if(queue.length === 0)
+  {
+    return('Invalid Input.');
+  }
+  else
+  {
+    return queue;
+  }
 }
 
 //determinePrecedence
@@ -187,7 +205,7 @@ const shuntingYardAlgorithm = (input) => {
 const determinePrecedence = (operator) =>
 {
   //Create a precedence table:
-  let precedenceTable = [['^'], ['*', '/'], ['+', '-'], ['(', '{', '[', 'Sin(', 'Cos(', 'Tan(', 'Cot(', 
+  let precedenceTable = [['^', 'Neg'],  ['*', '/'], ['+', '-'], ['(', '{', '[', 'Sin(', 'Cos(', 'Tan(', 'Cot(', 
     'Arcsin(', 'Arccos(', 'Arctan(', 'Arcctg(', 'ln(', 'log(']]; //parentheses at end as marker.
 
   //Determine precedence of current operator:
@@ -212,7 +230,8 @@ const isNumber = (curData) =>
   if (curData === '/' || curData === '*' || curData === '+' || curData === '-' || curData === '^' || curData === '(' 
       || curData === ')' || curData === '{' || curData === '}' || curData === '[' || curData === ']' 
       || curData === 'Sin(' || curData === 'Cos(' || curData === 'Tan(' || curData === 'Cot(' || curData === 'Arcsin('
-      || curData === 'Arccos(' || curData === 'Arctan(' || curData === 'Arcctg(' || curData === 'ln(' || curData === 'log(')
+      || curData === 'Arccos(' || curData === 'Arctan(' || curData === 'Arcctg(' || curData === 'ln(' || curData === 'log('
+      || curData === 'Neg')
   {
     return false;
   }

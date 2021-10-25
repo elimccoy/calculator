@@ -1,5 +1,4 @@
 import React from 'react'
-import { propTypes } from 'react-bootstrap/esm/Image';
 import Style from '../Styles/CustomButton.module.css'
 
 const CustomButton = (props) => 
