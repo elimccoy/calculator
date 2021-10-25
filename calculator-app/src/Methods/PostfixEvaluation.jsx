@@ -14,7 +14,8 @@ const postfixEvaluation = (postfixExpression) =>
     //Check if the current data is a number:
     if (curData !== '/' && curData !== '*' && curData !== '+' && curData !== '-' && curData !== '^'
       && curData !== 'Sin(' && curData !== 'Cos(' && curData !== 'Tan(' && curData !== 'Cot(' && curData !== 'Arcsin('
-      && curData !== 'Arccos(' && curData !== 'Arctan(' && curData !== 'Arcctg(' && curData !== 'ln(' && curData !== 'log(') 
+      && curData !== 'Arccos(' && curData !== 'Arctan(' && curData !== 'Arcctg(' && curData !== 'ln(' && curData !== 'log('
+      && curData !== 'Neg') 
     {
       console.log('stack push: ' + curData);
       stack.push(curData);
@@ -22,13 +23,18 @@ const postfixEvaluation = (postfixExpression) =>
     }
     else 
     {
-
-      //If trig func:
+      //If single value func:
       if (curData === 'Sin(' || curData === 'Cos(' || curData === 'Tan(' || curData === 'Cot(' || curData === 'Arcsin('
-        || curData === 'Arccos(' || curData === 'Arctan(' || curData === 'Arcctg(' || curData === 'ln(' || curData === 'log(') {
+        || curData === 'Arccos(' || curData === 'Arctan(' || curData === 'Arcctg(' || curData === 'ln(' || curData === 'log('
+        || curData === 'Neg')
+      {
         let firstVal = stack.pop();
         let operator = curData;
         let result = null;
+
+        console.log('Single Val Func.');
+        console.log('Val = ' + firstVal);
+        console.log('Operator = ' + operator);
 
         switch (operator) {
           case 'Sin(':
@@ -61,11 +67,16 @@ const postfixEvaluation = (postfixExpression) =>
           case 'log(':
             result = Math.log10(firstVal);
             break;
+          case 'Neg':
+            result = firstVal * -1;
+            break;
           default:
             break;
         }
 
+        console.log('stack push: ' + result);
         stack.push(result);
+        console.log('stack: ' + stack.toString());
       }
       else 
       {
@@ -74,6 +85,11 @@ const postfixEvaluation = (postfixExpression) =>
         let secondVal = stack.pop();
         let operator = curData;
         let result = null;
+
+        console.log('Double Val Func.');
+        console.log('Val 1 = ' + firstVal);
+        console.log('Val 2 = ' + secondVal);
+        console.log('Operator = ' + operator);
 
         switch (operator) {
           case '/':
@@ -89,16 +105,15 @@ const postfixEvaluation = (postfixExpression) =>
             result = secondVal - firstVal;
             break;
           case '^':
-            result = secondVal;
-            for (let j = 1; j < firstVal; j++) {
-              result = result * secondVal;
-            }
+            result = Math.pow(secondVal, firstVal);
             break;
           default:
             break;
         }
 
+        console.log('stack push: ' + result);
         stack.push(result);
+        console.log('stack: ' + stack.toString());
       }
     }
   }

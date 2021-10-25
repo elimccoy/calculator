@@ -16,34 +16,57 @@ const CalculatorComponent = () =>
   //Desc: Adds the passed button value to the input string.
   const buttonClick = (buttonVal) =>
   {
-    //Check if answer is on the display.
-    if(answerOnDisplay === true)
-    {
-      setVisibleString('');
-      setInput([]);
-      setAnswerOnDisplay(false);
-      return;
-    }
-
     //Handle negation and deleting.
     if(buttonVal === 'Neg')
     {
-      setVisibleString(visibleString + '-');
-      let s = input;
-      s.push(buttonVal);
-      setInput(s);
+      if(answerOnDisplay === true)
+      {
+        setVisibleString('-');
+        let s = [];
+        s.push(buttonVal);
+        setInput(s);
+        setAnswerOnDisplay(false);
+      }
+      else
+      {
+        setVisibleString(visibleString + '-');
+        let s = input;
+        s.push(buttonVal);
+        setInput(s);
+      }
     }
     else if(buttonVal === 'Del')
     {
-      let s = input;
-      setInput(s.slice(0, s.length - 1));
-      setVisibleString(visibleString.slice(0, visibleString.length - 1));
+      if(answerOnDisplay === true)
+      {
+        let s = [];
+        setInput(s);
+        setVisibleString('');
+        setAnswerOnDisplay(false);
+      }
+      else
+      {
+        let s = input;
+        setInput(s.slice(0, s.length - 1));
+        setVisibleString(visibleString.slice(0, visibleString.length - 1));
+      }
     }
     else
     {
-      let s = input;
-      s.push(buttonVal);
-      setVisibleString(visibleString + buttonVal);
+      if(answerOnDisplay === true)
+      {
+        let s = [];
+        s.push(buttonVal);
+        setInput(s);
+        setVisibleString('' + buttonVal);
+        setAnswerOnDisplay(false);
+      }
+      else
+      {
+        let s = input;
+        s.push(buttonVal);
+        setVisibleString(visibleString + buttonVal);
+      }
     }
   } 
 
@@ -52,14 +75,25 @@ const CalculatorComponent = () =>
   // have correct synatax, the result will be an error.
   const evaluate = () =>
   {
+    //Convert to postfix and evaluate.
     let result = shuntingYardAlgorithm(input);
     console.log('post shunting yard: ' + result);
-    result = postfixEvaluation(result);
     
-    //Clear input and show result.
-    setInput([]);
-    setVisibleString('Ans = ' + result + '\nClick any button to continue...');
-    setAnswerOnDisplay(true);
+    //Check to see if result was valid.
+    if(result === 'Invalid Input.' || result === undefined)
+    {
+      setVisibleString(result);
+      setAnswerOnDisplay(true);
+    }
+    else
+    {
+      result = postfixEvaluation(result);
+
+      //Clear input and show result.
+      setInput([]);
+      setVisibleString('Ans = ' + result);
+      setAnswerOnDisplay(true);
+    }
   }
 
   return (
