@@ -194,6 +194,12 @@ const shuntingYardAlgorithm = (input) => {
         temp++;
       }
 
+      //Check syntax with decimal
+      if(numAfterDeci === false && pastDecimalPlace === true)
+      {
+        return NaN;
+      }
+
       //Reposition pointer.
       i = temp;
 
