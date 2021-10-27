@@ -47,8 +47,9 @@ const CalculatorComponent = () =>
       else
       {
         let s = input;
+        let valueToDelete = s[s.length - 1];
         setInput(s.slice(0, s.length - 1));
-        setVisibleString(visibleString.slice(0, visibleString.length - 1));
+        setVisibleString(visibleString.slice(0, visibleString.length - valueToDelete.length ));
       }
     }
     else
@@ -66,6 +67,7 @@ const CalculatorComponent = () =>
         let s = input;
         s.push(buttonVal);
         setVisibleString(visibleString + buttonVal);
+        console.log("Input: " + s.toString());
       }
     }
   } 
@@ -88,6 +90,12 @@ const CalculatorComponent = () =>
     else
     {
       result = postfixEvaluation(result);
+
+      //If the result is not a number.
+      if(isNaN(result))
+      {
+        result = 'Invalid Input.'
+      }
 
       //Clear input and show result.
       setInput([]);

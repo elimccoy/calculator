@@ -5,6 +5,15 @@ const postfixEvaluation = (postfixExpression) =>
   console.log('Postfix Eval...');
   let stack = []
 
+  //Check expression to make sure it does not have invalid data.
+  for(let i = 0; i < postfixExpression.length; i++)
+  {
+    if(postfixExpression.at(i) === '(' || postfixExpression.at(i) === '{' || postfixExpression.at(i) === '[')
+    {
+      return "Invalid Input.";
+    }
+  }
+
   //Iterate over expression and use stack to evaluate.
   for (let i = 0; i < postfixExpression.length; i++) 
   {
@@ -118,7 +127,15 @@ const postfixEvaluation = (postfixExpression) =>
     }
   }
 
-  return (stack.pop());
+  //Check to see if the stack is valid.
+  if(stack.length !== 1)
+  {
+    return NaN;
+  }
+  else
+  {
+    return (stack.pop());
+  }
 }
 
 export default postfixEvaluation;

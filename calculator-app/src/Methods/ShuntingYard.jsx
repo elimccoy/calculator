@@ -113,18 +113,41 @@ const shuntingYardAlgorithm = (input) => {
     if (curData === 1 || curData === 2 || curData === 3 || curData === 4 || curData === 5 || curData === 6
       || curData === 7 || curData === 8 || curData === 9 || curData === 0 || curData === '.') {
 
-      let fullNumber = curData;
+
+      //Check to see if input is decimal with no whole num.
+      let fullNumber;
       let temp = i;
       let numPastDecimal = 0;
       let pastDecimalPlace = false;
       let negativeNum = false;
+      let numAfterDeci = false;
+
+      if(curData === '.')
+      {
+        fullNumber = 0;
+        pastDecimalPlace = true;
+      }
+      else
+      {
+        fullNumber = curData;
+      }
+      
+      console.log("Full number: " + fullNumber );
       
       while (temp !== input.length - 1) {
+
+        console.log("Full number: " + fullNumber );
 
         let next = input[temp + 1];
 
         if (next === '/' || next === '*' || next === '+' || next === '-' || next === '^' || next === '(' || next === ')'
         || next === '{' || next === '}' || next === '[' || next === ']') {
+          
+          //Check to see if there was anything recorded after the decimal.
+          if(numAfterDeci === false && pastDecimalPlace === true)
+          {
+            return NaN;
+          }
           break;
         }
         else if(next === '.') //Check to see if we have a decimal.
@@ -133,14 +156,11 @@ const shuntingYardAlgorithm = (input) => {
         }
         else 
         {
-          /*
-          if(fullNumber === 'Neg')//Handle negitive value.
+          
+          if(pastDecimalPlace) //Handle past decimal.
           {
-            fullNumber = next * -1;
-            negativeNum = true;
-          }
-          else*/ if(pastDecimalPlace) //Handle past decimal.
-          {
+            //Record that there was a number after the decimal.
+            numAfterDeci = true;
             let denom = 10;
             for(let k = 0; k < numPastDecimal; k++)
             {

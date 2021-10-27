@@ -5,6 +5,8 @@ import Main from './Main';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+document.title = "Eli McCoy's Calculator";
+
 ReactDOM.render(
   <React.StrictMode>
     <Main />
