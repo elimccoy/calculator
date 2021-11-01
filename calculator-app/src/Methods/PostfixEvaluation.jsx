@@ -103,6 +103,10 @@ const postfixEvaluation = (postfixExpression) =>
         switch (operator) {
           case '/':
             result = secondVal / firstVal;
+            if(!isFinite(result))
+            {
+              return NaN;
+            }
             break;
           case '*':
             result = secondVal * firstVal;
