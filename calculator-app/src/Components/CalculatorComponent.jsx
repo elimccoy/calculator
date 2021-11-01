@@ -84,7 +84,7 @@ const CalculatorComponent = () =>
     //Check to see if result was valid.
     if(result === 'Invalid Input.' || result === undefined)
     {
-      setVisibleString(result);
+      setVisibleString('Ans = Invalid Input.');
       setAnswerOnDisplay(true);
     }
     else
