@@ -3,6 +3,7 @@ import Style from '../Styles/CalculatorComponent.module.css'
 import CustomButton from './CustomButton';
 import shuntingYardAlgorithm from '../Methods/ShuntingYard';
 import postfixEvaluation from '../Methods/PostfixEvaluation';
+import automatedTests from '../Methods/AutomatedTests';
 
 const CalculatorComponent = () => 
 {
@@ -16,6 +17,9 @@ const CalculatorComponent = () =>
   //Desc: Adds the passed button value to the input string.
   const buttonClick = (buttonVal) =>
   {
+
+    automatedTests(2, 5);
+
     //Handle negation and deleting.
     if(buttonVal === 'Neg')
     {

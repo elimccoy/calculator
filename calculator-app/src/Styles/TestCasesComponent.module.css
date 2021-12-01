@@ -1,0 +1,61 @@
+.ResultsWindow
+{
+    border: 1px solid black;
+    height: 600px;
+    width: 700px;
+    background-color: white;
+    padding-left: 3px;
+    white-space: pre-wrap;
+    overflow: scroll;
+}
+
+.StatsWindow
+{
+    border: 1px solid black;
+    height: 220px;
+    width: 700px;
+    background-color: white;
+    padding-left: 3px;
+    white-space: pre-wrap;
+    overflow: scroll;
+}
+
+.buttonStyle
+{
+    margin-top: 5px;
+}
+
+.InputWindow {
+    background-color: white;
+    height: 50px;
+    width: 700px;
+    border-radius: 10px;
+    border: 1px solid black;
+    padding-top: 10px;
+    padding-left: 10px;
+    margin-top: 7px;
+    display: flex;
+    flex-direction: row;
+}
+
+.buttonWindow {
+    height: 50px;
+    width: 700px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.noteWindow {
+    height: 90px;
+    width: 700px;
+    padding-top: 5px;
+    background-color: white;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius: 10px;
+    border: 1px solid black;
+
+}
