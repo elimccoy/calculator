@@ -578,12 +578,12 @@ const replaceWithReals = (candidateExpression) => {
             }
             else //Whole number.
             {
-                var newNum = getRandomWhole(1000);
+                var newNumWhole = getRandomWhole(1000);
                 if(getRandomWhole(2) === 1)
                 {
-                    newNum = newNum * -1;
+                    newNumWhole = newNumWhole * -1;
                 }
-                candidateExpression[ele] = newNum;
+                candidateExpression[ele] = newNumWhole;
             }
         }
     }
