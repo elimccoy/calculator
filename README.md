@@ -1,2 +1,2 @@
 # Calculator
-Calculator for CS480 (Advanced Software Engineering)
+Calculator webapp written in Javascript using React.
